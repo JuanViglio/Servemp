@@ -1,8 +1,4 @@
 # Servemp
 
-primer codigo git
-
-Otra cosa nueva
-
-codigo de origen
+nuevo codigo para subir
 
