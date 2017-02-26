@@ -1,0 +1,18 @@
+﻿@{ViewBag.Title = "Listado de Clientes";}
+@model List<ServempMVC.Models.Clientes>
+
+<h2>Listado de Clientes</h2>
+
+<table>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.ApellidoyNombre)
+        </td>
+    </tr>
+}
+</table>
