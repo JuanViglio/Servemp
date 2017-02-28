@@ -11,16 +11,45 @@ namespace ServempMVC.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {            
-            return View();
-        }
+        {
+            BuscadorClientes modelo = new BuscadorClientes();
+
+            return View(modelo);
+        }       
 
         [HttpPost]
-        public ActionResult GetClientes(Clientes cliente)
+        public ActionResult GetClientes(BuscadorClientes cliente)
         {
             CreditosContext context = new CreditosContext();
+            string codigo="";
 
-            List<Clientes> clientes = context.Clientes.Where(x=> x.Codigo==cliente.Codigo || x.ApellidoyNombre==cliente.ApellidoyNombre).ToList();
+            if (cliente.Codigo != null)
+            {
+                switch (cliente.TipoDocumentoSeleccionado)
+                {
+                    case "DNI":
+                        codigo = "1-" + cliente.Codigo;
+                        break;       
+                                 
+                    case "LIBRETA DE ENROLAMIENTO":
+                        codigo = "2-" + cliente.Codigo;
+                        break;
+
+                    case "LIBRETA CIVICA":
+                        codigo = "3-" + cliente.Codigo;
+                        break;
+
+                    case "CEDULA DE IDENTIDAD":
+                        codigo = "4-" + cliente.Codigo;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+
+            List<Clientes> clientes = context.Clientes.Where(x=> x.Codigo==codigo || x.ApellidoyNombre==cliente.ApellidoyNombre).ToList();
 
             return View("ClientesListado", clientes);
 
