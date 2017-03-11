@@ -9,23 +9,17 @@ using System.Web.Security;
 
 namespace ServempMVC.Models
 {
-    public class CreditosContext : DbContext
-    {
-        public CreditosContext() : base("DefaultConnection")
-        {
-            Database.SetInitializer<CreditosContext>(null);
-        }
+    //public class CreditosContext : DbContext
+    //{
+    //    public CreditosContext() : base("DefaultConnection")
+    //    {
+    //        Database.SetInitializer<CreditosContext>(null);
+    //    }
 
-        public DbSet<Clientes> Clientes { get; set; }
-    }
+    //    //public DbSet<Clientes> Clientes { get; set; }
 
-    [Table("clientes")]
-    public class Clientes
-    {
-        [Key]
-        public string Codigo { get; set; }
-        public string ApellidoyNombre { get; set; }
-    }
+    //    //public DbSet<Legajos> Legajos { get; set; }
+    //}
 
     public class BuscadorClientes
     {
@@ -40,6 +34,10 @@ namespace ServempMVC.Models
                                         };
         }
         public string TipoDocumentoSeleccionado { get; set; }
+
+        public string Legajo { get; set; }
+
+        public string Financiera { get; set; }
     }
 
 }

@@ -181,6 +181,6 @@ D:\Sistemmas\Working Copy\Servemp\ServempMVC\bin\ko\System.Spatial.resources.dll
 D:\Sistemmas\Working Copy\Servemp\ServempMVC\bin\ru\System.Spatial.resources.dll
 D:\Sistemmas\Working Copy\Servemp\ServempMVC\bin\zh-Hans\System.Spatial.resources.dll
 D:\Sistemmas\Working Copy\Servemp\ServempMVC\bin\zh-Hant\System.Spatial.resources.dll
-D:\Sistemmas\Working Copy\Servemp\ServempMVC\obj\Debug\ServempMVC.csprojResolveAssemblyReference.cache
 D:\Sistemmas\Working Copy\Servemp\ServempMVC\obj\Debug\ServempMVC.dll
 D:\Sistemmas\Working Copy\Servemp\ServempMVC\obj\Debug\ServempMVC.pdb
+D:\Sistemmas\Working Copy\Servemp\ServempMVC\obj\Debug\ServempMVC.csprojResolveAssemblyReference.cache

@@ -19,9 +19,9 @@
        <tr>
            <td><input id="Filtro" name="Filtro" type="radio" value="optFinaniera" style="width:20px" onclick="limpiarFiltro()" /></td>
            <td>Numero Legajo</td>
-           <td>@Html.TextBoxFor(s => s.ApellidoyNombre, (object)new { disabled = "disabled", @class = "nombreClass" })</td>
+           <td>@Html.TextBoxFor(s => s.Legajo, (object)new { disabled = "disabled", @class = "nombreClass" })</td>
            <td>Codigo Financiera</td>
-           <td>@Html.TextBoxFor(s => s.ApellidoyNombre, (object)new { disabled = "disabled", @class = "codigoClass" })</td>
+           <td>@Html.TextBoxFor(s => s.Financiera, (object)new { disabled = "disabled", @class = "codigoClass" })</td>
        </tr>
         <tr>
             <td colspan="3">
@@ -50,13 +50,32 @@
     {
         if ($('input:radio:checked').val() == 'optCodigo') {
             $('#ApellidoyNombre').val("");
-            $("#ApellidoyNombre").attr("disabled", "disabled");
+            $('#Legajo').val("");
+            $('#Financiera').val("");
+
             $("#Codigo").removeAttr("disabled");
+            $("#ApellidoyNombre").attr("disabled", "disabled");
+            $("#Legajo").attr("disabled");
+            $("#Financiera").attr("disabled");
+        }
+        else if ($('input:radio:checked').val() == 'optNombre') {
+            $('#Codigo').val("");
+            $('#Legajo').val("");
+            $('#Financiera').val("");
+
+            $("#ApellidoyNombre").removeAttr("disabled");
+            $("#Codigo").attr("disabled", "disabled");
+            $("#Legajo").attr("disabled");
+            $("#Financiera").attr("disabled");
         }
         else {
             $('#Codigo').val("");
-            $("#Codigo").attr("disabled", "disabled");
-            $("#ApellidoyNombre").removeAttr("disabled");
-        }        
+            $('#ApellidoyNombre').val("");
+
+            $("#Legajo").removeAttr("disabled", "disabled");
+            $("#Financiera").removeAttr("disabled", "disabled");
+            $("#Codigo").attr("disabled");
+            $("#ApellidoyNombre").attr("disabled");
+        }
     }
 </script>

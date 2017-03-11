@@ -1,5 +1,5 @@
 ﻿@{ViewBag.Title = "Listado de Clientes";}
-@model List<ServempMVC.Models.Clientes>
+@model List<ServempMVC.legajos>
 
 <h2>Listado de Clientes</h2>
 
@@ -8,10 +8,30 @@
 {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
+            @Html.Label("Codigo")
+        </td>
+        <td>
+            @Html.Label("Apellido y Nombre")
+        </td>
+        <td>
+            @Html.Label("Codigo Empresa")
+        </td>
+        <td>
+            @Html.Label("Numero Empresa")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.clientes.Codigo)
         </td>        
         <td>
-            @Html.DisplayFor(modelItem => item.ApellidoyNombre)
+            @Html.DisplayFor(modelItem => item.clientes.ApellidoyNombre) 
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodigoEmpresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroEmpresa)
         </td>
     </tr>
 }

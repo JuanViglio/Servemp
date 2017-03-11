@@ -20,7 +20,9 @@ namespace ServempMVC.Controllers
         [HttpPost]
         public ActionResult GetClientes(BuscadorClientes cliente)
         {
-            CreditosContext context = new CreditosContext();
+            creditosEntities context = new creditosEntities();            
+            List<legajos> legajos = new List<legajos>();
+
             string codigo="";
 
             if (cliente.Codigo != null)
@@ -42,16 +44,31 @@ namespace ServempMVC.Controllers
                     case "CEDULA DE IDENTIDAD":
                         codigo = "4-" + cliente.Codigo;
                         break;
-
-                    default:
-                        break;
                 }
+
+                legajos = context.legajos.Where(x => x.clientes.Codigo == codigo).ToList();
+            }
+            else if (cliente.ApellidoyNombre != null)
+	        {
+		        legajos = context.legajos.Where (x => x.clientes.ApellidoyNombre == cliente.ApellidoyNombre).ToList();
+	        }
+            else if (cliente.Financiera != "" && cliente.Legajo != "")
+            {
+                try 
+	            {	        
+                    long codigoEmpresa = Convert.ToInt64(cliente.Financiera);
+                    long numeroEmpresa = Convert.ToInt64(cliente.Legajo);
+
+                    legajos = context.legajos.Where(x => x.CodigoEmpresa == codigoEmpresa && x.NumeroEmpresa == numeroEmpresa).ToList();
+                    
+	            }
+	            catch (Exception)
+	            {
+                    return View("ClientesListado");
+	            }
             }
 
-
-            List<Clientes> clientes = context.Clientes.Where(x=> x.Codigo==codigo || x.ApellidoyNombre==cliente.ApellidoyNombre).ToList();
-
-            return View("ClientesListado", clientes);
+            return View("ClientesListado",legajos);
 
         }
     }

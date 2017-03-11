@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="creditosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="calificaciones">
+          <Key>
+            <PropertyRef Name="Descripcion" />
+          </Key>
+          <Property Name="Tipo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ApellidoyNombre" Type="varchar" MaxLength="32" />
+          <Property Name="DomicilioParticular" Type="varchar" MaxLength="32" />
+          <Property Name="EntrecallesParticular" Type="varchar" MaxLength="32" />
+          <Property Name="BarrioParticular" Type="varchar" MaxLength="50" />
+          <Property Name="CPParticular" Type="varchar" MaxLength="5" />
+          <Property Name="LocalidadParticular" Type="varchar" MaxLength="50" />
+          <Property Name="TelefonoParticular" Type="varchar" MaxLength="32" />
+          <Property Name="NombreEmpresa" Type="varchar" MaxLength="50" />
+          <Property Name="DomicilioEmpresa" Type="varchar" MaxLength="50" />
+          <Property Name="EntrecallesEmpresa" Type="varchar" MaxLength="50" />
+          <Property Name="BarrioEmpresa" Type="varchar" MaxLength="50" />
+          <Property Name="CPEmpresa" Type="varchar" MaxLength="5" />
+          <Property Name="LocalidadEmpresa" Type="varchar" MaxLength="50" />
+          <Property Name="TelefonoEmpresa" Type="varchar" MaxLength="50" />
+          <Property Name="TipoCliente" Type="varchar" MaxLength="50" />
+          <Property Name="HabDomPart1" Type="bit" />
+          <Property Name="DomicilioPart1" Type="varchar" MaxLength="50" />
+          <Property Name="CPPart1" Type="varchar" MaxLength="50" />
+          <Property Name="LocalidadPart1" Type="varchar" MaxLength="50" />
+          <Property Name="HabDomPart2" Type="bit" />
+          <Property Name="DomicilioPart2" Type="varchar" MaxLength="50" />
+          <Property Name="CPPart2" Type="varchar" MaxLength="50" />
+          <Property Name="LocalidadPart2" Type="varchar" MaxLength="50" />
+          <Property Name="HabDomPart3" Type="bit" />
+          <Property Name="DomicilioPart3" Type="varchar" MaxLength="50" />
+          <Property Name="CPPart3" Type="varchar" MaxLength="50" />
+          <Property Name="LocalidadPart3" Type="varchar" MaxLength="50" />
+          <Property Name="HabDomLab1" Type="bit" />
+          <Property Name="DomicilioLab1" Type="varchar" MaxLength="50" />
+          <Property Name="CPLab1" Type="varchar" MaxLength="50" />
+          <Property Name="LocalidadLab1" Type="varchar" MaxLength="50" />
+          <Property Name="HabDomLab2" Type="bit" />
+          <Property Name="DomicilioLab2" Type="varchar" MaxLength="50" />
+          <Property Name="CPLab2" Type="varchar" MaxLength="50" />
+          <Property Name="LocalidadLab2" Type="varchar" MaxLength="50" />
+          <Property Name="ProximaGestion" Type="datetime" />
+          <Property Name="CUIL" Type="char" MaxLength="13" />
+          <Property Name="Referencias" Type="varchar" MaxLength="50" />
+          <Property Name="Adulterado" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="legajos">
+          <Key>
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="NumeroEmpresa" />
+          </Key>
+          <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+          <Property Name="NumeroEmpresa" Type="int" Nullable="false" />
+          <Property Name="CodigoCliente" Type="varchar" MaxLength="10" />
+          <Property Name="FechaCaida" Type="smalldatetime" />
+          <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Cuenta" Type="varchar" MaxLength="1" />
+          <Property Name="NroLote" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Observaciones" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="lotes">
+          <Key>
+            <PropertyRef Name="NumeroLote" />
+          </Key>
+          <Property Name="NumeroLote" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CodFinanciera" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="FechaAlta" Type="datetime" />
+          <Property Name="TotalImporte" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_legajos_clientes">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="legajos" Type="Self.legajos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="legajos">
+              <PropertyRef Name="CodigoCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="creditosModelStoreContainer">
+          <EntitySet Name="calificaciones" EntityType="Self.calificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="legajos" EntityType="Self.legajos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lotes" EntityType="Self.lotes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_legajos_clientes" Association="Self.FK_legajos_clientes">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="legajos" EntitySet="legajos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="creditosModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="calificaciones">
+          <Key>
+            <PropertyRef Name="Descripcion" />
+          </Key>
+          <Property Name="Tipo" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoyNombre" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioParticular" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="EntrecallesParticular" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="BarrioParticular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPParticular" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadParticular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoParticular" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="NombreEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomicilioEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntrecallesEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BarrioEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPEmpresa" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HabDomPart1" Type="Boolean" />
+          <Property Name="DomicilioPart1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPPart1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadPart1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HabDomPart2" Type="Boolean" />
+          <Property Name="DomicilioPart2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPPart2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadPart2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HabDomPart3" Type="Boolean" />
+          <Property Name="DomicilioPart3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPPart3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadPart3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HabDomLab1" Type="Boolean" />
+          <Property Name="DomicilioLab1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPLab1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadLab1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HabDomLab2" Type="Boolean" />
+          <Property Name="DomicilioLab2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPLab2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadLab2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProximaGestion" Type="DateTime" Precision="3" />
+          <Property Name="CUIL" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="Referencias" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Adulterado" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="legajos" Relationship="creditosModel.FK_legajos_clientes" FromRole="clientes" ToRole="legajos" />
+        </EntityType>
+        <EntityType Name="lotes">
+          <Key>
+            <PropertyRef Name="NumeroLote" />
+          </Key>
+          <Property Name="NumeroLote" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CodFinanciera" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="TotalImporte" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityContainer Name="creditosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="calificaciones" EntityType="Self.calificaciones" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="lotes" EntityType="Self.lotes" />
+          <EntitySet Name="legajos" EntityType="creditosModel.legajos" />
+          <AssociationSet Name="FK_legajos_clientes" Association="creditosModel.FK_legajos_clientes">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="legajos" EntitySet="legajos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="legajos">
+          <Key>
+            <PropertyRef Name="CodigoEmpresa" />
+            <PropertyRef Name="NumeroEmpresa" />
+          </Key>
+          <Property Name="CodigoEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="NumeroEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="CodigoCliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCaida" Type="DateTime" Precision="0" />
+          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Cuenta" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="NroLote" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="creditosModel.FK_legajos_clientes" FromRole="legajos" ToRole="clientes" />
+        </EntityType>
+        <Association Name="FK_legajos_clientes">
+          <End Type="creditosModel.clientes" Role="clientes" Multiplicity="0..1" />
+          <End Type="creditosModel.legajos" Role="legajos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="legajos">
+              <PropertyRef Name="CodigoCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="creditosModelStoreContainer" CdmEntityContainer="creditosEntities">
+          <EntitySetMapping Name="calificaciones">
+            <EntityTypeMapping TypeName="creditosModel.calificaciones">
+              <MappingFragment StoreEntitySet="calificaciones">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="creditosModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="ApellidoyNombre" ColumnName="ApellidoyNombre" />
+                <ScalarProperty Name="DomicilioParticular" ColumnName="DomicilioParticular" />
+                <ScalarProperty Name="EntrecallesParticular" ColumnName="EntrecallesParticular" />
+                <ScalarProperty Name="BarrioParticular" ColumnName="BarrioParticular" />
+                <ScalarProperty Name="CPParticular" ColumnName="CPParticular" />
+                <ScalarProperty Name="LocalidadParticular" ColumnName="LocalidadParticular" />
+                <ScalarProperty Name="TelefonoParticular" ColumnName="TelefonoParticular" />
+                <ScalarProperty Name="NombreEmpresa" ColumnName="NombreEmpresa" />
+                <ScalarProperty Name="DomicilioEmpresa" ColumnName="DomicilioEmpresa" />
+                <ScalarProperty Name="EntrecallesEmpresa" ColumnName="EntrecallesEmpresa" />
+                <ScalarProperty Name="BarrioEmpresa" ColumnName="BarrioEmpresa" />
+                <ScalarProperty Name="CPEmpresa" ColumnName="CPEmpresa" />
+                <ScalarProperty Name="LocalidadEmpresa" ColumnName="LocalidadEmpresa" />
+                <ScalarProperty Name="TelefonoEmpresa" ColumnName="TelefonoEmpresa" />
+                <ScalarProperty Name="TipoCliente" ColumnName="TipoCliente" />
+                <ScalarProperty Name="HabDomPart1" ColumnName="HabDomPart1" />
+                <ScalarProperty Name="DomicilioPart1" ColumnName="DomicilioPart1" />
+                <ScalarProperty Name="CPPart1" ColumnName="CPPart1" />
+                <ScalarProperty Name="LocalidadPart1" ColumnName="LocalidadPart1" />
+                <ScalarProperty Name="HabDomPart2" ColumnName="HabDomPart2" />
+                <ScalarProperty Name="DomicilioPart2" ColumnName="DomicilioPart2" />
+                <ScalarProperty Name="CPPart2" ColumnName="CPPart2" />
+                <ScalarProperty Name="LocalidadPart2" ColumnName="LocalidadPart2" />
+                <ScalarProperty Name="HabDomPart3" ColumnName="HabDomPart3" />
+                <ScalarProperty Name="DomicilioPart3" ColumnName="DomicilioPart3" />
+                <ScalarProperty Name="CPPart3" ColumnName="CPPart3" />
+                <ScalarProperty Name="LocalidadPart3" ColumnName="LocalidadPart3" />
+                <ScalarProperty Name="HabDomLab1" ColumnName="HabDomLab1" />
+                <ScalarProperty Name="DomicilioLab1" ColumnName="DomicilioLab1" />
+                <ScalarProperty Name="CPLab1" ColumnName="CPLab1" />
+                <ScalarProperty Name="LocalidadLab1" ColumnName="LocalidadLab1" />
+                <ScalarProperty Name="HabDomLab2" ColumnName="HabDomLab2" />
+                <ScalarProperty Name="DomicilioLab2" ColumnName="DomicilioLab2" />
+                <ScalarProperty Name="CPLab2" ColumnName="CPLab2" />
+                <ScalarProperty Name="LocalidadLab2" ColumnName="LocalidadLab2" />
+                <ScalarProperty Name="ProximaGestion" ColumnName="ProximaGestion" />
+                <ScalarProperty Name="CUIL" ColumnName="CUIL" />
+                <ScalarProperty Name="Referencias" ColumnName="Referencias" />
+                <ScalarProperty Name="Adulterado" ColumnName="Adulterado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lotes">
+            <EntityTypeMapping TypeName="creditosModel.lotes">
+              <MappingFragment StoreEntitySet="lotes">
+                <ScalarProperty Name="NumeroLote" ColumnName="NumeroLote" />
+                <ScalarProperty Name="CodFinanciera" ColumnName="CodFinanciera" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="TotalImporte" ColumnName="TotalImporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="legajos">
+            <EntityTypeMapping TypeName="creditosModel.legajos">
+              <MappingFragment StoreEntitySet="legajos">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="NroLote" ColumnName="NroLote" />
+                <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="FechaCaida" ColumnName="FechaCaida" />
+                <ScalarProperty Name="CodigoCliente" ColumnName="CodigoCliente" />
+                <ScalarProperty Name="NumeroEmpresa" ColumnName="NumeroEmpresa" />
+                <ScalarProperty Name="CodigoEmpresa" ColumnName="CodigoEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

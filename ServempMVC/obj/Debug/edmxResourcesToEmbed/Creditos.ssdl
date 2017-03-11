@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="creditosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityType Name="calificaciones">
+    <Key>
+      <PropertyRef Name="Descripcion" />
+    </Key>
+    <Property Name="Tipo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ApellidoyNombre" Type="varchar" MaxLength="32" />
+    <Property Name="DomicilioParticular" Type="varchar" MaxLength="32" />
+    <Property Name="EntrecallesParticular" Type="varchar" MaxLength="32" />
+    <Property Name="BarrioParticular" Type="varchar" MaxLength="50" />
+    <Property Name="CPParticular" Type="varchar" MaxLength="5" />
+    <Property Name="LocalidadParticular" Type="varchar" MaxLength="50" />
+    <Property Name="TelefonoParticular" Type="varchar" MaxLength="32" />
+    <Property Name="NombreEmpresa" Type="varchar" MaxLength="50" />
+    <Property Name="DomicilioEmpresa" Type="varchar" MaxLength="50" />
+    <Property Name="EntrecallesEmpresa" Type="varchar" MaxLength="50" />
+    <Property Name="BarrioEmpresa" Type="varchar" MaxLength="50" />
+    <Property Name="CPEmpresa" Type="varchar" MaxLength="5" />
+    <Property Name="LocalidadEmpresa" Type="varchar" MaxLength="50" />
+    <Property Name="TelefonoEmpresa" Type="varchar" MaxLength="50" />
+    <Property Name="TipoCliente" Type="varchar" MaxLength="50" />
+    <Property Name="HabDomPart1" Type="bit" />
+    <Property Name="DomicilioPart1" Type="varchar" MaxLength="50" />
+    <Property Name="CPPart1" Type="varchar" MaxLength="50" />
+    <Property Name="LocalidadPart1" Type="varchar" MaxLength="50" />
+    <Property Name="HabDomPart2" Type="bit" />
+    <Property Name="DomicilioPart2" Type="varchar" MaxLength="50" />
+    <Property Name="CPPart2" Type="varchar" MaxLength="50" />
+    <Property Name="LocalidadPart2" Type="varchar" MaxLength="50" />
+    <Property Name="HabDomPart3" Type="bit" />
+    <Property Name="DomicilioPart3" Type="varchar" MaxLength="50" />
+    <Property Name="CPPart3" Type="varchar" MaxLength="50" />
+    <Property Name="LocalidadPart3" Type="varchar" MaxLength="50" />
+    <Property Name="HabDomLab1" Type="bit" />
+    <Property Name="DomicilioLab1" Type="varchar" MaxLength="50" />
+    <Property Name="CPLab1" Type="varchar" MaxLength="50" />
+    <Property Name="LocalidadLab1" Type="varchar" MaxLength="50" />
+    <Property Name="HabDomLab2" Type="bit" />
+    <Property Name="DomicilioLab2" Type="varchar" MaxLength="50" />
+    <Property Name="CPLab2" Type="varchar" MaxLength="50" />
+    <Property Name="LocalidadLab2" Type="varchar" MaxLength="50" />
+    <Property Name="ProximaGestion" Type="datetime" />
+    <Property Name="CUIL" Type="char" MaxLength="13" />
+    <Property Name="Referencias" Type="varchar" MaxLength="50" />
+    <Property Name="Adulterado" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="legajos">
+    <Key>
+      <PropertyRef Name="CodigoEmpresa" />
+      <PropertyRef Name="NumeroEmpresa" />
+    </Key>
+    <Property Name="CodigoEmpresa" Type="int" Nullable="false" />
+    <Property Name="NumeroEmpresa" Type="int" Nullable="false" />
+    <Property Name="CodigoCliente" Type="varchar" MaxLength="10" />
+    <Property Name="FechaCaida" Type="smalldatetime" />
+    <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Cuenta" Type="varchar" MaxLength="1" />
+    <Property Name="NroLote" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="Observaciones" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="lotes">
+    <Key>
+      <PropertyRef Name="NumeroLote" />
+    </Key>
+    <Property Name="NumeroLote" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="CodFinanciera" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="FechaAlta" Type="datetime" />
+    <Property Name="TotalImporte" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <Association Name="FK_legajos_clientes">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+    <End Role="legajos" Type="Self.legajos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="legajos">
+        <PropertyRef Name="CodigoCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="creditosModelStoreContainer">
+    <EntitySet Name="calificaciones" EntityType="Self.calificaciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="legajos" EntityType="Self.legajos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="lotes" EntityType="Self.lotes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_legajos_clientes" Association="Self.FK_legajos_clientes">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="legajos" EntitySet="legajos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
