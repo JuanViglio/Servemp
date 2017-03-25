@@ -1,38 +1,52 @@
 ﻿@{ViewBag.Title = "Listado de Clientes";}
 @model List<ServempMVC.legajos>
+<link href="~/Content/BusquedaClientes.css" rel="stylesheet" />
 
-<h2>Listado de Clientes</h2>
+<h2 style="margin-left: 50px">Listado de Clientes</h2>
 
-<table>
-@foreach (var item in Model)
+@using (Html.BeginForm("GetDatosCliente", "Home"))
 {
-    <tr>
-        <td>
-            @Html.Label("Codigo")
-        </td>
-        <td>
-            @Html.Label("Apellido y Nombre")
-        </td>
-        <td>
-            @Html.Label("Codigo Empresa")
-        </td>
-        <td>
-            @Html.Label("Numero Empresa")
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.clientes.Codigo)
-        </td>        
-        <td>
-            @Html.DisplayFor(modelItem => item.clientes.ApellidoyNombre) 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodigoEmpresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroEmpresa)
-        </td>
-    </tr>
+    <table style="margin-left: 25px">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>
+                    @Html.Label("Codigo")
+                </td>
+                <td>
+                    @Html.Label("Apellido y Nombre")
+                </td>
+                <td>
+                    @Html.Label("Codigo Empresa")
+                </td>
+                <td>
+                    @Html.Label("Numero Empresa")
+                </td>
+            </tr>
+            <tr>
+                <td padding-right 5px;
+                    border-left-width 10px;>
+                    <input id="clienteSeleccionado" name="clienteSeleccionado" type="radio" value="optSeleccionado"/>
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.clientes.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.clientes.ApellidoyNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoEmpresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroEmpresa)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <input type="submit" value="Buscar" style="width:90px;margin-top:20px" />
+                </td>
+            </tr>
+        }
+    </table>
 }
-</table>

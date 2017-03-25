@@ -50,7 +50,7 @@ namespace ServempMVC.Controllers
             }
             else if (cliente.ApellidoyNombre != null)
 	        {
-		        legajos = context.legajos.Where (x => x.clientes.ApellidoyNombre == cliente.ApellidoyNombre).ToList();
+		        legajos = context.legajos.Where (x => x.clientes.ApellidoyNombre.Contains(cliente.ApellidoyNombre)).ToList();
 	        }
             else if (cliente.Financiera != "" && cliente.Legajo != "")
             {
@@ -70,6 +70,12 @@ namespace ServempMVC.Controllers
 
             return View("ClientesListado",legajos);
 
+        }
+
+        [HttpPost]
+        public ActionResult GetDatosCliente()
+        {
+            return View();
         }
     }
 }

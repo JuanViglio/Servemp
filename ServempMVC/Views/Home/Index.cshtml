@@ -1,28 +1,30 @@
 ﻿@{ViewBag.Title = "Buscador";}
 @model ServempMVC.Models.BuscadorClientes
+<script src="~/Scripts/BusquedaClientes.js"></script>
+<link href="~/Content/BusquedaClientes.css" rel="stylesheet" />
 
 @using (Html.BeginForm("GetClientes", "Home"))
 {
    <table style="margin-left:15px">
         <tr>
-            <td><input checked="checked" id="Filtro" name="Filtro" type="radio" value="optCodigo" style="width:20px" onclick="limpiarFiltro()"/></td>
+            <td><input checked="checked" id="Filtro" name="Filtro" type="radio" value="optCodigo" onclick="limpiarFiltro()"/></td>
             <td>Tipo de Documento</td>
             <td>@Html.DropDownListFor(m => m.TipoDocumentoSeleccionado, Model.ListaTipoDocumento(), new { @class = "dropDownListClass" })</td>
             <td>Nro. de Documento</td>
             <td>@Html.TextBoxFor(s => s.Codigo,new {@class = "codigoClass"})</td>
         </tr>
         <tr>
-            <td><input id="Filtro" name="Filtro" type="radio" value="optNombre" style="width:20px" onclick="limpiarFiltro()" /></td>
+            <td><input id="Filtro" name="Filtro" type="radio" value="optNombre" onclick="limpiarFiltro()" /></td>
             <td>Nombre</td>
             <td colspan="1">@Html.TextBoxFor(s => s.ApellidoyNombre, (object)new { disabled = "disabled", @class = "nombreClass" })</td>
         </tr>
-       <tr>
-           <td><input id="Filtro" name="Filtro" type="radio" value="optFinaniera" style="width:20px" onclick="limpiarFiltro()" /></td>
+        <tr>
+           <td><input id="Filtro" name="Filtro" type="radio" value="optFinaniera" onclick="limpiarFiltro()" /></td>
            <td>Numero Legajo</td>
            <td>@Html.TextBoxFor(s => s.Legajo, (object)new { disabled = "disabled", @class = "nombreClass" })</td>
            <td>Codigo Financiera</td>
            <td>@Html.TextBoxFor(s => s.Financiera, (object)new { disabled = "disabled", @class = "codigoClass" })</td>
-       </tr>
+        </tr>
         <tr>
             <td colspan="3">
                 <input type="submit" value="Buscar" style="width:90px;margin-top:20px" />
@@ -30,52 +32,3 @@
         </tr>
     </table>
 }
-
-<style type="text/css">
-    .codigoClass{
-        width:172px;
-    }
-
-    .dropDownListClass{
-        height:25px;
-    }
-
-    .nombreClass{
-        width:204px;
-    }
-</style>
-
-<script type="text/javascript">
-    function limpiarFiltro()
-    {
-        if ($('input:radio:checked').val() == 'optCodigo') {
-            $('#ApellidoyNombre').val("");
-            $('#Legajo').val("");
-            $('#Financiera').val("");
-
-            $("#Codigo").removeAttr("disabled");
-            $("#ApellidoyNombre").attr("disabled", "disabled");
-            $("#Legajo").attr("disabled");
-            $("#Financiera").attr("disabled");
-        }
-        else if ($('input:radio:checked').val() == 'optNombre') {
-            $('#Codigo').val("");
-            $('#Legajo').val("");
-            $('#Financiera').val("");
-
-            $("#ApellidoyNombre").removeAttr("disabled");
-            $("#Codigo").attr("disabled", "disabled");
-            $("#Legajo").attr("disabled");
-            $("#Financiera").attr("disabled");
-        }
-        else {
-            $('#Codigo').val("");
-            $('#ApellidoyNombre').val("");
-
-            $("#Legajo").removeAttr("disabled", "disabled");
-            $("#Financiera").removeAttr("disabled", "disabled");
-            $("#Codigo").attr("disabled");
-            $("#ApellidoyNombre").attr("disabled");
-        }
-    }
-</script>

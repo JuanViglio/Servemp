@@ -9,18 +9,6 @@ using System.Web.Security;
 
 namespace ServempMVC.Models
 {
-    //public class CreditosContext : DbContext
-    //{
-    //    public CreditosContext() : base("DefaultConnection")
-    //    {
-    //        Database.SetInitializer<CreditosContext>(null);
-    //    }
-
-    //    //public DbSet<Clientes> Clientes { get; set; }
-
-    //    //public DbSet<Legajos> Legajos { get; set; }
-    //}
-
     public class BuscadorClientes
     {
         public string Codigo { get; set; }
